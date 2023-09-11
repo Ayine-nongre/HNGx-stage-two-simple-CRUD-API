@@ -1,5 +1,27 @@
 const { person } = require("../model/person")
 
+exports.getPerson = async (req, res, next) => {
+    const people = [] 
+    let user
+    if (!(req.query.name))
+        return next(res.json({ Message: "You can't retrieve a person's details without the name" }));
+
+    const persons = await person.find({ Name: req.query.name }).catch(err => console.error(err));
+    if (persons){
+        if (persons.length == 0)
+            return next(res.json({ Message: "There are no records of user with name " + req.query.name }));
+        
+        persons.map(person => {
+            user = { Name: person.Name }
+            people.push(user)
+        })
+
+        return next(res.json(people));
+    }
+    else
+        return next(res.json({ Message: "Error fetching person" }));
+}
+
 exports.addPerson = async (req, res, next) => {
     if (!(req.body.name))
         return next(res.json({ Message: "Make sure all input spaces are filled"}));
@@ -13,28 +35,6 @@ exports.addPerson = async (req, res, next) => {
         res.status(201).json({ Message: "New person created successfully"})
     else
         return next(res.status(400).json({ Message: "Error creating person"}));
-}
-
-exports.getPerson = async (req, res, next) => {
-    const people = [] 
-    let user
-    if (!(req.body.name))
-        return next(res.json({ Message: "You can't retrieve a person's details without the name" }));
-
-    const persons = await person.find({ Name: req.body.name }).catch(err => console.error(err));
-    if (persons){
-        if (persons.length == 0)
-            return next(res.json({ Message: "There are no records of user with name " + req.body.name }));
-        
-        persons.map(person => {
-            user = { Name: person.Name }
-            people.push(user)
-        })
-
-        return next(res.json(people));
-    }
-    else
-        return next(res.json({ Message: "Error fetching person" }));
 }
 
 exports.updatePerson = async (req , res, next) => {

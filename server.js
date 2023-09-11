@@ -1,3 +1,4 @@
+require('dotenv').config({path: './.env'});
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -6,7 +7,7 @@ const { addPerson, getPerson, deletePerson, updatePerson } = require('./controll
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
-mongoose.connect("mongodb://127.0.0.1:27017/person", {useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.DB_SERVER, {useNewUrlParser: true, useUnifiedTopology: true });
 
 var set = mongoose.connection
 set.on('error', console.error.bind(console, 'connection error:'));
@@ -14,13 +15,13 @@ set.once('open', function() {
     console.log('Db connected successfully')
 });
 
-app.post("/api/create-person", addPerson);
+app.get("/api/get", getPerson);
 
-app.post("/api/get-person", getPerson);
+app.post("/api/create", addPerson);
 
-app.patch("/api/update-person", updatePerson)
+app.patch("/api/update", updatePerson)
 
-app.delete("/api/delete-person", deletePerson);
+app.delete("/api/delete", deletePerson);
 
 app.listen(3000 || process.env.PORT, () => {
     console.log("Server is running successfully");
