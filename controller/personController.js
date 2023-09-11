@@ -3,13 +3,14 @@ const { person } = require("../model/person")
 exports.getPerson = async (req, res, next) => {
     const people = [] 
     let user
-    if (!(req.query.name))
+
+    if (!(req.params.name))
         return next(res.json({ Message: "You can't retrieve a person's details without the name" }));
 
-    const persons = await person.find({ Name: req.query.name }).catch(err => console.error(err));
+    const persons = await person.find({ Name: req.params.name }).catch(err => console.error(err));
     if (persons){
         if (persons.length == 0)
-            return next(res.json({ Message: "There are no records of user with name " + req.query.name }));
+            return next(res.json({ Message: "There are no records of user with name " + req.params.name }));
         
         persons.map(person => {
             user = { Name: person.Name }

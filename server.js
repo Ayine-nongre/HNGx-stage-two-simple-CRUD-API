@@ -17,11 +17,11 @@ set.once('open', function() {
 
 app.get("/api/:name", getPerson);
 
-app.post("/api/:name", addPerson);
+app.post("/api", addPerson);
 
 app.patch("/api/:name", updatePerson)
 
-app.delete("/api", deletePerson);
+app.delete("/api/:name", deletePerson);
 
 app.listen(3000 || process.env.PORT, () => {
     console.log("Server is running successfully");
