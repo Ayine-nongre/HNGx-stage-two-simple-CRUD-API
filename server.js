@@ -15,13 +15,13 @@ set.once('open', function() {
     console.log('Db connected successfully')
 });
 
-app.get("/api/get", getPerson);
+app.get("/api/:name", getPerson);
 
-app.post("/api/create", addPerson);
+app.post("/api/:name", addPerson);
 
-app.patch("/api/update", updatePerson)
+app.patch("/api/:name", updatePerson)
 
-app.delete("/api/delete", deletePerson);
+app.delete("/api", deletePerson);
 
 app.listen(3000 || process.env.PORT, () => {
     console.log("Server is running successfully");
