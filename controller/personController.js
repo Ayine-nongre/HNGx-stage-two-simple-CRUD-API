@@ -39,14 +39,14 @@ exports.addPerson = async (req, res, next) => {
 }
 
 exports.updatePerson = async (req , res, next) => {
-    if (!(req.body.name))
+    if (!(req.params.name))
         return next(res.json({ Message: "You can't update a person's details without the name" }));
 
     if (!(req.body.newName))
         return next(res.json({ Message: "No new data passed to be updated" }));
     
     const user = await person.findOneAndUpdate(
-        { Name: req.body.name }, 
+        { Name: req.params.name }, 
         { $set: { Name: req.body.newName } },
         { returnDocument : "after" }
          ).catch(err => console.error(err));
