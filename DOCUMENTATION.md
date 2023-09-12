@@ -40,7 +40,8 @@ https://hngx-ayinenongre.onrender.com/api
 #### Success:
 ```
 {
-  Message: New person has been created successfully
+  name: ayine-nongre
+  id: 123
 }
 ```
 ### Failure:
@@ -57,7 +58,7 @@ https://hngx-ayinenongre.onrender.com/api
 ```
 
 ### 2. Get a person
-Endpoint: /api/:name<br>
+Endpoint: /api/:user_id<br>
 Description: Gets a person from database<br>
 
 Example use case:
@@ -66,7 +67,8 @@ https://hngx-ayinenongre.onrender.com/api/ayine-nongre
 #### Success:
 ```
 {
-  Name: ayine-nongre
+  name: ayine-nongre
+  id: 123
 }
 ```
 ### Failure:
@@ -83,8 +85,8 @@ https://hngx-ayinenongre.onrender.com/api/ayine-nongre
 }
 ```
 
-### 3. Delete a person
-Endpoint: /api/:name<br>
+### 3. Update a person
+Endpoint: /api/:user_id<br>
 Description: Deletes a person from database<br>
 
 Example use case:
@@ -99,7 +101,8 @@ https://hngx-ayinenongre.onrender.com/api/ayine-nongre
 #### Success:
 ```
 {
-  Name: Jake
+  name: Jake
+  id: 123
 }
 ```
 ### Failure:
@@ -117,7 +120,7 @@ https://hngx-ayinenongre.onrender.com/api/ayine-nongre
 ```
 
 ### 4. Delete a person
-Endpoint: /api/:name<br>
+Endpoint: /api/:user_id<br>
 Description: Deleres a person from database<br>
 
 Example use case:
@@ -126,7 +129,8 @@ https://hngx-ayinenongre.onrender.com/api/Jake
 #### Success:
 ```
 {
-  Message: Person deleted successfully
+  name: Jake
+  id: 123
 }
 ```
 ### Failure:
