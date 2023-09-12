@@ -17,7 +17,7 @@ exports.getPerson = async (req, res, next) => {
             people.push(user)
         })
 
-        return next(res.json(people));
+        return next(res.status(200).json(people));
     }
     else
         return next(res.json({ Message: "Error fetching person" }));
@@ -33,7 +33,7 @@ exports.addPerson = async (req, res, next) => {
 
     const created = await newPerson.save().catch(err => console.error(err));
     if (created)
-        res.status(201).json({ Message: "New person created successfully"})
+        return next(res.status(200).json(created));
     else
         return next(res.status(400).json({ Message: "Error creating person"}));
 }
@@ -58,12 +58,12 @@ exports.updatePerson = async (req , res, next) => {
 }
 
 exports.deletePerson = async (req, res, next) => {
-    if (!(req.body.name))
+    if (!(req.params.name))
         return next(res.json({ Message: "You can't delete a person's details without the name" }));
 
-    const user = await person.findOneAndDelete({ Name: req.body.name }).catch(err => console.error(err));
+    const user = await person.findOneAndDelete({ Name: req.params.name }).catch(err => console.error(err));
     if (user)
-        return next(res.json({ Message: "Person deleted successfully" }));
+        return next(res.status(200).json(user));
     else
         return next(res.status(400).json({ Message: "Error deleting person" }));
 }
