@@ -21,11 +21,13 @@ exports.getPerson = async (req, res, next) => {
 }
 
 exports.addPerson = async (req, res, next) => {
-    if (!(req.body.name))
+    const user = req.body
+    const { name } = user
+    if (!name)
         return next(res.json({ Message: "Make sure all input spaces are filled"}));
 
     const newPerson = new person({
-        Name: req.body.name
+        Name: name
     })
 
     const created = await newPerson.save().catch(err => console.error(err));
@@ -36,15 +38,18 @@ exports.addPerson = async (req, res, next) => {
 }
 
 exports.updatePerson = async (req , res, next) => {
+    const update = req.body
+    const { name } = update
+
     if (!(req.params.user_id))
         return next(res.json({ Message: "You can't update a person's details without the name" }));
 
-    if (!(req.body.newName))
+    if (!name)
         return next(res.json({ Message: "No new data passed to be updated" }));
     
     const user = await person.findOneAndUpdate(
         { Name: req.params.user_id }, 
-        { $set: { Name: req.body.newName } },
+        { $set: { Name: name } },
         { returnDocument : "after" }
          ).catch(err => console.error(err));
 

@@ -6,6 +6,7 @@ const { addPerson, getPerson, deletePerson, updatePerson, getAll } = require('./
 
 const app = express();
 
+app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 mongoose.connect(process.env.DB_SERVER, {useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -21,7 +22,7 @@ app.get("/api/:user_id", getPerson);
 
 app.post("/api", addPerson);
 
-app.patch("/api/:user_id", updatePerson)
+app.put("/api/:user_id", updatePerson)
 
 app.delete("/api/:user_id", deletePerson);
 
