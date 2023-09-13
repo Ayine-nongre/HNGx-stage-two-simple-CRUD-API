@@ -1,5 +1,10 @@
 const { person } = require("../model/person")
 
+exports.getAll = async(req, res, next) => {
+    const persons = await person.find({});
+    res.status(200).json(persons)
+}
+
 exports.getPerson = async (req, res, next) => {
     if (!(req.params.user_id))
         return next(res.json({ Message: "You can't retrieve a person's details without the name" }));

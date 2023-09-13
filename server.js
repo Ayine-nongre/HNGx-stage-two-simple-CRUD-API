@@ -2,7 +2,7 @@ require('dotenv').config({path: './.env'});
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const { addPerson, getPerson, deletePerson, updatePerson } = require('./controller/personController');
+const { addPerson, getPerson, deletePerson, updatePerson, getAll } = require('./controller/personController');
 
 const app = express();
 
@@ -14,6 +14,8 @@ set.on('error', console.error.bind(console, 'connection error:'));
 set.once('open', function() {
     console.log('Db connected successfully')
 });
+
+app.get("/api", getAll);
 
 app.get("/api/:user_id", getPerson);
 
